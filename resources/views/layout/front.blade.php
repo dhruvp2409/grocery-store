@@ -51,7 +51,7 @@
                 <div id="user-btn" class="fas fa-user"></div>
                 <a href="{{ route('search-page') }}" class="fas fa-search"></a>
                 <a href="{{ route('wishlist') }}"><i class="fas fa-heart"></i><span>(0)</span></a>
-                <a href="cart.php"><i class="fas fa-shopping-cart"></i><span>(1)</span></a>
+                <a href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i><span>(1)</span></a>
             </div>
             <div class="profile">
                 <img src="{{ asset('storage/' . auth()->user()->image) }}" alt="">
@@ -114,12 +114,12 @@
 
         </section>
 
-        <p class="credit">  <span>Thnak You For Visit Our Website</span> | All Rights Reserved! </p>
+        <p class="credit">  <span>Thank You For Visit Our Website</span> | All Rights Reserved! </p>
 
      </footer>
 
     <script src="{{ asset('js/script.js') }}"></script>
-
+    @yield('script')
 </body>
 
 </html>

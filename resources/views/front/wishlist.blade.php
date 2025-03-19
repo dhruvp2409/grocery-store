@@ -13,7 +13,7 @@
                 @foreach ($wishlists as $wishlist)
                     <form action="{{ route('add-to-cart') }}" method="POST" class="box">
                         @csrf
-                        <a href="#" class="fas fa-times" onclick="return confirm('Delete this from wishlist?');"></a>
+                        <a href="{{ route('wishlist.delete', $wishlist->id) }}" class="fas fa-times" onclick="return confirm('Delete this from wishlist?');"></a>
                         <a href="{{ route('product-details', $wishlist->product->id) }}" class="fas fa-eye"></a>
                         <img src="{{ asset('storage/' . $wishlist->product->image) }}" alt="">
                         <div class="name">{{ $wishlist->product->name }}</div>
@@ -30,14 +30,14 @@
                     @endphp
                 @endforeach
             @else
-                <p class="empty">your wishlist is empty</p>';
+                <p class="empty">your wishlist is empty</p>
             @endif
         </div>
 
         <div class="wishlist-total">
             <p>Grand Total : <span>₹{{ $grand_total }}/-</span></p>
             <a href="{{ route('product-list') }}" class="option-btn">Continue Shopping</a>
-            <a href="wishlist.php?delete_all" class="delete-btn {{ $grand_total > 1 ? '' : 'disabled' }}">Delete All</a>
+            <a href="{{ route('wishlist.deleteAll') }}" class="delete-btn {{ $grand_total > 1 ? '' : 'disabled' }}">Delete All</a>
         </div>
 
     </section>

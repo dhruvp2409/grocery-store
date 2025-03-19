@@ -12,7 +12,7 @@
             @if (count($products) > 0)
                 @foreach ($products as $k => $product)
                     <div class="box">
-                        <div class="price">${{ $product->price }}/-</div>
+                        <div class="price">₹{{ $product->price }}/-</div>
                         <img src="{{ asset('storage/' . $product->image) }}" alt="">
                         <div class="name">{{ $product->name }}</div>
                         <div class="cat">{{ $product->category->title }}</div>

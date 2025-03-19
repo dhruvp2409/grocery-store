@@ -6,10 +6,12 @@ use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\OrderController;
 use App\Http\Controllers\Front\PageController;
 use App\Http\Controllers\Front\ProductController as FrontProductController;
 use App\Http\Controllers\Front\OrderController as FrontOrderController;
+use App\Http\Controllers\Front\WishlistController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,9 +52,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('add-to-wishlist', [FrontOrderController::class, 'add_to_wishlist'])->name('add-to-wishlist');
     Route::post('add-to-cart', [FrontOrderController::class, 'add_to_cart'])->name('add-to-cart');
     Route::get('wishlist', [FrontOrderController::class, 'wishlist'])->name('wishlist');
-    Route::get('wishlist/delete/{id}', [FrontOrderController::class, 'delete'])->name('wishlist.delete');
-    Route::get('wishlist/delete-all', [FrontOrderController::class, 'deleteAll'])->name('wishlist.deleteAll');
-    Route::get('cart', [FrontOrderController::class, 'cart'])->name('cart');
+    Route::get('wishlist/delete/{id}', [WishlistController::class, 'delete'])->name('wishlist.delete');
+    Route::get('wishlist/delete-all', [WishlistController::class, 'deleteAll'])->name('wishlist.deleteAll');
+    Route::get('cart', [CartController::class, 'index'])->name('cart');
+    Route::get('cart/delete/{id}', [CartController::class, 'delete'])->name('cart.delete');
+    Route::get('cart/delete-all', [CartController::class, 'deleteAll'])->name('cart.deleteAll');
+    Route::post('cart/update-quantity', [CartController::class, 'updateQuantity'])->name('cart.update');
+    Route::get('checkout', [OrderController::class, 'checkout'])->name('checkout');
+    Route::post('place-order', [OrderController::class, 'placeOrder'])->name('place-order');
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/', [HomeController::class,'index'])->name('home');
         Route::resource('categories', CategoryController::class)->except('show')->names('categories');
