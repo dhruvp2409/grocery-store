@@ -13,6 +13,7 @@ use App\Http\Controllers\Front\ProductController as FrontProductController;
 use App\Http\Controllers\Front\OrderController as FrontOrderController;
 use App\Http\Controllers\Front\WishlistController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RazorpayPaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,6 +61,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('cart/update-quantity', [CartController::class, 'updateQuantity'])->name('cart.update');
     Route::get('checkout', [OrderController::class, 'checkout'])->name('checkout');
     Route::post('place-order', [OrderController::class, 'placeOrder'])->name('place-order');
+    // Route::get('payment', 'RazorpayPaymentController@index');
+    Route::post('create-razorpay-order', [RazorpayPaymentController::class, 'createOrder'])->name('create-razorpay-order');
+    Route::get('success', [RazorpayPaymentController::class, 'success'])->name('success');
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/', [HomeController::class,'index'])->name('home');
         Route::resource('categories', CategoryController::class)->except('show')->names('categories');

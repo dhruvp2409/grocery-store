@@ -75,6 +75,7 @@ class OrderController extends Controller
 
     public function placeOrder(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'name' => 'required|string',
             'phone' => 'required|string',

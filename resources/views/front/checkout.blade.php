@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-            <button type="submit" id="razorpay-button"
+            <button type="button" id="razorpay-button"
                 class="btn {{ $cartGrandTotal > 1 ? '' : 'disabled' }}" style="display: none;">Pay with Razorpay</button>
             <input type="submit" id="place-order-button"
                 class="btn {{ $cartGrandTotal > 1 ? '' : 'disabled' }}" value="Place order">
@@ -97,6 +97,78 @@
           document.getElementById('place-order-button').style.display = 'block';
           document.getElementById('razorpay-button').style.display = 'none';
        }
+    });
+</script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+     document.getElementById('razorpay-button').addEventListener('click', async () => {
+        // e.preventDefault(); // Prevents form submission
+        let form = document.getElementById('order-form'); // Replace with your actual form ID
+         if (!form.checkValidity()) {
+            form.reportValidity(); // Shows validation messages
+         } else {
+            const formData = new FormData(form);
+
+            // Prepare form data for redirection
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+
+            // Fetch the order ID from the server
+            const response = await fetch("{{ route('create-razorpay-order') }}", {
+                method: "POST",
+                body:JSON.stringify({                         // Convert data to JSON format
+                    amount: "{{ $cartGrandTotal }}"            // Pass the amount as data
+                }),
+                headers: {
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    "amount": "{{ $cartGrandTotal }}",
+                    "Content-Type": "application/json"
+                }
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                const urls = "{{ route('success') }}";
+
+                var options = {
+                    "key": "rzp_test_Lc1AqxPfJ51UeX",  // Razorpay Key
+                    "amount": data.amount * 100,      // Amount in paise
+                    "currency": "INR",
+                    "name": "The Indian Supermart",
+                    "description": "Order Payment",
+                    "image": "{{ url('theme/assets/media/svg/brand-logos/logo.png') }}",
+                    "order_id": data.order_id,        // Use the fetched order ID
+                    "handler": function(response) {
+                        for (var key in formObject) {
+                            if (formObject.hasOwnProperty(key)) {
+                                var hiddenField = document.createElement("input");
+                                hiddenField.type = "hidden";
+                                hiddenField.name = key;
+                                hiddenField.value = formObject[key];
+                                form.appendChild(hiddenField);
+                            }
+                        }
+                        document.body.appendChild(form);
+                        form.submit();
+
+                        // window.location.href = "billing";
+                    },
+                    "notes": {
+                        "address": "Razorpay Corporate Office"
+                    },
+                    "theme": {
+                        "color": "#3399cc"
+                    }
+                };
+
+                var rzp1 = new Razorpay(options);
+                rzp1.open();
+
+            }
+        }
     });
 </script>
 @endsection
