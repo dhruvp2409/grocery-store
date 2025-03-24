@@ -1,5 +1,5 @@
 @extends('layout.admin')
-@section('title', 'Products')
+@section('title', 'Users')
 @section('content')
     <section class="user-accounts">
 

@@ -139,7 +139,6 @@
                     "currency": "INR",
                     "name": "The Indian Supermart",
                     "description": "Order Payment",
-                    "image": "{{ url('theme/assets/media/svg/brand-logos/logo.png') }}",
                     "order_id": data.order_id,        // Use the fetched order ID
                     "handler": function(response) {
                         for (var key in formObject) {

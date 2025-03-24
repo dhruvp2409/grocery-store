@@ -9,17 +9,16 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class InquiryMail extends Mailable
+class RegisterMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $inquiry;
-
+    public $request;
     /**
      * Create a new message instance.
      */
-    public function __construct($inquiry)
+    public function __construct($request)
     {
-        $this->inquiry = $inquiry;
+        $this->request = $request;
     }
 
     /**
@@ -29,6 +28,6 @@ class InquiryMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Inquiry Mail')->view('email.inquiryMail');
+        return $this->subject('Register Mail')->view('email.registerMail');
     }
 }

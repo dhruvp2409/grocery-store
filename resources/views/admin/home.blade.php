@@ -5,51 +5,51 @@
             <h1 class="title">dashboard</h1>
             <div class="box-container">
                 <div class="box">
-                    <h3>$0/-</h3>
-                    <p>total pendings</p>
+                    <h3>₹{{ $count['pending_orders'] }}/-</h3>
+                    <p>Total Pendings</p>
                     <a href="admin_orders.php" class="btn">see orders</a>
                 </div>
 
                 <div class="box">
-                    <h3>$0/-</h3>
-                    <p>completed orders</p>
+                    <h3>₹{{ $count['completed_orders'] }}/-</h3>
+                    <p>Completed Orders</p>
                     <a href="admin_orders.php" class="btn">see orders</a>
                 </div>
 
                 <div class="box">
-                    <h3>0</h3>
-                    <p>orders placed</p>
+                    <h3>{{ $count['orders'] }}</h3>
+                    <p>Orders Placed</p>
                     <a href="admin_orders.php" class="btn">see orders</a>
                 </div>
 
                 <div class="box">
-                    <h3>0</h3>
-                    <p>products added</p>
-                    <a href="admin_products.php" class="btn">see products</a>
+                    <h3>{{ $count['products'] }}</h3>
+                    <p>Products Added</p>
+                    <a href="{{ route('admin.products.index') }}" class="btn">see products</a>
                 </div>
 
                 <div class="box">
-                    <h3>0</h3>
-                    <p>total users</p>
+                    <h3>{{ $count['users'] }}</h3>
+                    <p>Total Users</p>
                     <a href="admin_users.php" class="btn">see accounts</a>
                 </div>
 
                 <div class="box">
-                    <h3>0</h3>
-                    <p>total admins</p>
-                    <a href="admin_users.php" class="btn">see accounts</a>
+                    <h3>{{ $count['inquiries'] }}</h3>
+                    <p>Total Messages</p>
+                    <a href="{{ route('admin.inquiries.index') }}" class="btn">see messages</a>
                 </div>
 
                 <div class="box">
-                    <h3>0</h3>
-                    <p>total accounts</p>
-                    <a href="admin_users.php" class="btn">see accounts</a>
-                </div>
+                    <h3> Reports</h3>
+                    <p>View Detailed Reports</p>
+                    <a href="admin_reports.php" class="btn">Generate Reports</a>
+                 </div>
 
                 <div class="box">
-                    <h3>0</h3>
-                    <p>total messages</p>
-                    <a href="admin_contacts.php" class="btn">see messages</a>
+                    <h3>₹{{ $count['total_billing'] }}/-</h3>
+                    <p>Total Billing Amount</p>
+                    <a href="admin_billing.php" class="btn">View Billing</a>
                 </div>
 
             </div>

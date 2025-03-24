@@ -5,11 +5,11 @@
     <h1 class="title">get in touch</h1>
     <form action="{{ route('inquiry') }}" method="POST">
        @csrf
-       <input type="text" name="name" class="box" required placeholder="enter your name">
-       <input type="email" name="email" class="box" required placeholder="enter your email">
-       <input type="text" name="phone" minlength="10" maxlength="10" class="box" required placeholder="enter your phone number">
-       <textarea name="message" class="box" required placeholder="enter your message" cols="30" rows="10"></textarea>
-       <input type="submit" value="send message" class="btn" >
+       <input type="text" name="name" class="box" required placeholder="Enter Your Name" value="{{ old('name') }}">
+       <input type="email" name="email" class="box" required placeholder="Enter Your Email" value="{{ old('email') }}">
+       <input type="text" name="phone" minlength="10" maxlength="10" class="box" required placeholder="Enter Your Phone Number" value="{{ old('phone') }}">
+       <textarea name="message" class="box" required placeholder="Enter Your Message" cols="30" rows="10">{{ old('message') }}</textarea>
+       <input type="submit" value="send message" class="btn">
     </form>
  </section>
 @endsection

@@ -2,21 +2,9 @@
 @section('title', 'Shop')
 @section('content')
     <section class="p-category">
-
-        <a href="category.php?category=fruits">Fruits</a>
-        <a href="category.php?category=vegitables">Vegitables</a>
-        <a href="category.php?category=fish">Fish</a>
-        <a href="category.php?category=meat">meat</a>
-        <a href="category.php?category=masala & dry fruits">Masala & Dry Fruits</a>
-        <a href="category.php?category=atta,rice,oil & dals">Atta,Rice,Oil & Dals</a>
-        <a href="category.php?category=biscuits & cookies">Biscuits & Cookies</a>
-        <a href="category.php?category=tea,coffee & more">Tea,Coffee & More</a>
-        <a href="category.php?category=dairy,bread & eggs">Dairy,Bread & Eggs</a>
-        <a href="category.php?category=cold drinks & juices">Cold Drinks & Juices</a>
         @foreach ($categories as $category)
             <a href="{{ route('category', $category->slug) }}">{{ $category->title }}</a>
         @endforeach
-
     </section>
 
     <section class="products">

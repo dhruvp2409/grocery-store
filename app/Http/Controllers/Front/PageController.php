@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Mail\InquiryMail;
 use App\Models\Category;
 use App\Models\Inquiry;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class PageController extends Controller
 {
@@ -47,7 +50,7 @@ class PageController extends Controller
         if ($inquiry) {
             return redirect()->back()->with('success', 'Inquiry already submitted');
         } else {
-            Inquiry::create([
+            $inquiry = Inquiry::create([
                 'user_id' => auth()->id(),
                 'name' => $request->name,
                 'email' => $request->email,
@@ -55,13 +58,16 @@ class PageController extends Controller
                 'message' => $request->message
             ]);
 
+            Mail::to('idhruvpatel24@gmail.com')->send(new InquiryMail($inquiry));
             return redirect()->back()->with('success', 'Inquiry submitted successfully');
         }
     }
 
     public function orders()
     {
-        return view('front.orders');
+        $orders = Order::where('user_id', auth()->id())->orderBy('id', 'DESC')->paginate(2);
+
+        return view('front.orders', compact('orders'));
     }
 
     public function category($slug)

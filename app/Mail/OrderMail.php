@@ -9,17 +9,17 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class InquiryMail extends Mailable
+class OrderMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $inquiry;
+    public $order;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($inquiry)
+    public function __construct($order)
     {
-        $this->inquiry = $inquiry;
+        $this->order = $order;
     }
 
     /**
@@ -29,6 +29,6 @@ class InquiryMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Inquiry Mail')->view('email.inquiryMail');
+        return $this->subject('Order Mail')->view('email.orderMail');
     }
 }

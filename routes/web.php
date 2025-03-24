@@ -3,11 +3,11 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\InquiryController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Front\CartController;
-use App\Http\Controllers\Front\OrderController;
 use App\Http\Controllers\Front\PageController;
 use App\Http\Controllers\Front\ProductController as FrontProductController;
 use App\Http\Controllers\Front\OrderController as FrontOrderController;
@@ -36,6 +36,7 @@ Route::post('register', [AuthController::class,'custom_register'])->name('custom
 
 Route::get('login', [AuthController::class,'login'])->name('login');
 Route::post('login', [AuthController::class,'custom_login'])->name('custom-login');
+Route::get('logout', [AuthController::class,'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [PageController::class,'index'])->name('home');
@@ -64,11 +65,15 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::get('payment', 'RazorpayPaymentController@index');
     Route::post('create-razorpay-order', [RazorpayPaymentController::class, 'createOrder'])->name('create-razorpay-order');
     Route::get('success', [RazorpayPaymentController::class, 'success'])->name('success');
+    Route::get('billing', [OrderController::class, 'billing'])->name('billing');
+    Route::get('invoice/{id}', [OrderController::class, 'invoice'])->name('invoice');
+
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/', [HomeController::class,'index'])->name('home');
         Route::resource('categories', CategoryController::class)->except('show')->names('categories');
         Route::resource('products', ProductController::class)->except('show')->names('products');
         Route::resource('users', UserController::class)->only(['index','destroy'])->names('users');
         Route::resource('inquiries', InquiryController::class)->only(['index','destroy'])->names('inquiries');
+        Route::resource('orders', OrderController::class)->only(['index','update','destroy'])->names('orders');
     });
 });

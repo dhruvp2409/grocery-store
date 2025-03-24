@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderMail;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -75,7 +77,6 @@ class OrderController extends Controller
 
     public function placeOrder(Request $request)
     {
-        dd($request->all());
         $request->validate([
             'name' => 'required|string',
             'phone' => 'required|string',
@@ -127,7 +128,7 @@ class OrderController extends Controller
             'total_products' => $cartProducts,
             'total_price' => $cartTotal,
             'placed_on' => now(),
-            'payment_status' => 'pending'
+            'payment_status' => $request->payment_method==1 ? 'pending' : 'completed'
         ]);
 
         // Reduce stock
@@ -140,10 +141,24 @@ class OrderController extends Controller
 
         // Clear cart
         Cart::where('user_id', auth()->id())->delete();
-        dd('Order placed successfully!');
+        // dd('Order placed successfully!');
         // Send Order Confirmation Email
-        // $this->sendOrderEmail($request->email, $cartProducts);
+        Mail::to(['idhruvpatel24@gmail.com', $request->email])->send(new OrderMail($order));
 
         return redirect()->route('billing');
+    }
+
+    public function billing()
+    {
+        $orders = Order::where('user_id', auth()->id())->get();
+
+        return view('front.billing', compact('orders'));
+    }
+
+    public function invoice($id)
+    {
+        $order = Order::findOrFail($id);
+
+        return view('front.invoice', compact('order'));
     }
 }
