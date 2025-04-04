@@ -12,7 +12,7 @@ class CartController extends Controller
     {
         $carts = Cart::where('user_id', auth()->id())->get();
         $grandTotal = $carts->sum(function ($item) {
-            return $item->product->price * $item->quantity;
+            return $item->product->stock > 0 ? $item->product->price * $item->quantity : 0;
         });
 
         return view('front.cart', compact('carts', 'grandTotal'));
@@ -45,7 +45,11 @@ class CartController extends Controller
             ->first();
 
         if ($cartItem) {
-            $cartItem->update(['quantity' => $request->p_qty]);
+            if ($cartItem->product->stock < $request->p_qty) {
+                return redirect()->route('cart')->with('error', "Only {$cartItem->product->stock} unit(s) available in stock.");
+            } else {
+                $cartItem->update(['quantity' => $request->p_qty]);
+            }
         }
 
         return redirect()->route('cart')->with('success', 'Cart quantity updated');

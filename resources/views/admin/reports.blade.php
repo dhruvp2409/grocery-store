@@ -111,7 +111,7 @@
         <div class="box">
             <h3>Top Selling Products</h3>
             <p>View products with highest sales</p>
-            <a href="top_selling_products.php" class="btn">View Top Selling Products</a>
+            <a href="{{ route('admin.top-selling-products') }}" class="btn">View Top Selling Products</a>
         </div>
 
     </div>

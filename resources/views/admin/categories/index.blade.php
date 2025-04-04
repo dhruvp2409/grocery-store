@@ -30,7 +30,7 @@
                 @endforeach
 
             @else
-                <p class="empty">No categories added yet!</p>;
+                <p class="empty">No categories added yet!</p>
             @endif
 
         </div>

@@ -31,7 +31,7 @@
                     </div>
                 @endforeach
             @else
-                <p class="empty">No products added yet!</p>;
+                <p class="empty">No products added yet!</p>
             @endif
 
         </div>

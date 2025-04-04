@@ -5,7 +5,11 @@
     <h1 class="title">update profile</h1>
     <form action="{{ route('update-profile') }}" method="POST" enctype="multipart/form-data">
        @csrf
-       <img src="{{ asset('storage/' . auth()->user()->image) }}" alt="">
+       @if (!empty(auth()->user()->image))
+          <img src="{{ asset('storage/' . auth()->user()->image) }}" alt="">
+       @else
+          <img src="{{ asset('images/user-pic.jpg') }}" alt="">
+       @endif
        <div class="flex">
           <div class="inputBox">
              <span>username :</span>

@@ -16,7 +16,11 @@
             <a href="{{ route('cart') }}"><i class="fas fa-shopping-cart"></i><span>({{$cart_counts}})</span></a>
         </div>
         <div class="profile">
-            <img src="{{ asset('storage/' . auth()->user()->image) }}" alt="">
+            @if (!empty(auth()->user()->image))
+                <img src="{{ asset('storage/' . auth()->user()->image) }}" alt="">
+            @else
+                <img src="{{ asset('images/user-pic.jpg') }}" alt="">
+            @endif
             <p>{{auth()->user()->name}}</p>
             <a href="{{ route('profile') }}" class="btn">update profile</a>
             <a href="{{ route('logout') }}" class="delete-btn">logout</a>

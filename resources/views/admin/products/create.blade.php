@@ -15,10 +15,6 @@
                         @foreach ($categories as $k=>$category)
                             <option value="{{ $category->id }}" {{ old('category_id') ? 'selected' :''}}>{{ $category->title }}</option>
                         @endforeach
-                        {{-- <option value="vegitables">vegitables</option>
-                        <option value="fruits">fruits</option>
-                        <option value="meat">meat</option>
-                        <option value="fish">fish</option> --}}
                     </select>
                 </div>
                 <div class="inputBox">
@@ -26,6 +22,10 @@
                         placeholder="enter product price" value="{{ old('price') }}">
                     <input type="file" name="image" required class="box" accept="image/jpg, image/jpeg, image/png">
                 </div>
+            </div>
+            <div class="inputBox">
+                <input type="number" min="0" name="stock" class="box" required
+                    placeholder="enter product stock" value="{{ old('stock') }}">
             </div>
             <textarea name="description" class="box" required placeholder="enter product details" cols="30" rows="10">{{ old('description') }}</textarea>
             <input type="submit" class="btn">

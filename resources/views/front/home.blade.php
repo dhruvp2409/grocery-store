@@ -41,9 +41,13 @@
                     <input type="hidden" name="product_name" value="{{ $product->name }}">
                     <input type="hidden" name="product_price" value="{{ $product->price }}">
                     <input type="hidden" name="product_image" value="{{ $product->image }}">
-                    <input type="number" min="1" value="1" name="product_qty" class="qty">
+                    @if ($product->stock == 0)
+                        <p class="empty">Out Of Stock</p>;
+                    @else
+                        <input type="number" min="1" value="1" name="product_qty" class="qty">
+                    @endif
                     <input type="submit" value="add to wishlist" class="option-btn" formaction="{{ route('add-to-wishlist') }}">
-                    <input type="submit" value="add to cart" class="btn">
+                    <input type="submit" value="add to cart" class="btn {{ $product->stock == 0 ? 'disabled' : '' }}">
                 </form>
             @endforeach
         </div>

@@ -23,7 +23,7 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
             'confirm_password' => 'required|min:6|same:password',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         $image = null;

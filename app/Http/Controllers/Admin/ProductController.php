@@ -30,6 +30,7 @@ class ProductController extends Controller
             'name' => 'required|string',
             'category_id' => 'required|integer|exists:categories,id',
             'price' => 'required|numeric',
+            'stock' => 'required|integer|min:0',
             'description' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
@@ -43,6 +44,7 @@ class ProductController extends Controller
             'slug' => \Str::slug($request->name),
             'category_id' => $request->category_id,
             'price' => $request->price,
+            'stock' => $request->stock,
             'description' => $request->description,
             'image' => $image
         ]);
@@ -64,6 +66,7 @@ class ProductController extends Controller
             'name' => 'required|string',
             'category_id' => 'required|integer|exists:categories,id',
             'price' => 'required|numeric',
+            'stock' => 'required|integer|min:0',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
@@ -81,6 +84,7 @@ class ProductController extends Controller
             'slug' => \Str::slug($request->name),
             'category_id' => $request->category_id,
             'price' => $request->price,
+            'stock' => $request->stock,
             'description' => $request->description
         ]);
 

@@ -60,13 +60,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('cart/delete/{id}', [CartController::class, 'delete'])->name('cart.delete');
     Route::get('cart/delete-all', [CartController::class, 'deleteAll'])->name('cart.deleteAll');
     Route::post('cart/update-quantity', [CartController::class, 'updateQuantity'])->name('cart.update');
-    Route::get('checkout', [OrderController::class, 'checkout'])->name('checkout');
-    Route::post('place-order', [OrderController::class, 'placeOrder'])->name('place-order');
+    Route::get('checkout', [FrontOrderController::class, 'checkout'])->name('checkout');
+    Route::post('place-order', [FrontOrderController::class, 'placeOrder'])->name('place-order');
     // Route::get('payment', 'RazorpayPaymentController@index');
     Route::post('create-razorpay-order', [RazorpayPaymentController::class, 'createOrder'])->name('create-razorpay-order');
     Route::get('success', [RazorpayPaymentController::class, 'success'])->name('success');
-    Route::get('billing', [OrderController::class, 'billing'])->name('billing');
-    Route::get('invoice/{id}', [OrderController::class, 'invoice'])->name('invoice');
+    Route::get('billing', [FrontOrderController::class, 'billing'])->name('billing');
+    Route::get('invoice/{id}', [FrontOrderController::class, 'invoice'])->name('invoice');
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/', [HomeController::class,'index'])->name('home');
@@ -75,6 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('reports', [HomeController::class, 'reports'])->name('reports');
         Route::get('order-summary-report', [HomeController::class, 'order_summary_report'])->name('order-summary-report');
         Route::get('product-sales-report', [HomeController::class, 'product_sales_report'])->name('product-sales-report');
+        Route::get('top-selling-products', [HomeController::class, 'top_selling_products'])->name('top-selling-products');
         Route::resource('categories', CategoryController::class)->except('show')->names('categories');
         Route::resource('products', ProductController::class)->except('show')->names('products');
         Route::resource('users', UserController::class)->only(['index','destroy'])->names('users');

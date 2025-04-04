@@ -18,10 +18,14 @@
                     <div class="name">{{ $cart->product->name }}</div>
                     <div class="price">₹{{ $cart->product->price }}/-</div>
                     <input type="hidden" name="cart_id" value="{{ $cart->id }}">
-                    <div class="flex-btn">
-                        <input type="number" min="1" value="{{ $cart->quantity }}" class="qty" name="p_qty">
-                        <input type="submit" value="Update" class="option-btn">
-                    </div>
+                    @if ($cart->product->stock == 0)
+                        <p class="empty">Out Of Stock</p>;
+                    @else
+                        <div class="flex-btn">
+                            <input type="number" min="1" value="{{ $cart->quantity }}" class="qty" name="p_qty">
+                            <input type="submit" value="Update" class="option-btn">
+                        </div>
+                    @endif
                     <div class="sub-total"> Sub Total : <span>₹{{ $cart->product->price * $cart->quantity }}/-</span> </div>
                 </form>
             @endforeach

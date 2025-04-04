@@ -55,4 +55,11 @@ class HomeController extends Controller
 
         return view('admin.reports.product_sales_report', compact('products'));
     }
+
+    public function top_selling_products()
+    {
+        $products = Product::orderBy('total_sold', 'desc')->get();
+
+        return view('admin.reports.top_selling_products', compact('products'));
+    }
 }

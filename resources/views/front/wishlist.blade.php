@@ -18,15 +18,21 @@
                         <img src="{{ asset('storage/' . $wishlist->product->image) }}" alt="">
                         <div class="name">{{ $wishlist->product->name }}</div>
                         <div class="price">₹{{ $wishlist->product->price }}/-</div>
-                        <input type="number" min="1" value="1" class="qty" name="product_qty">
+                        @if ($wishlist->product->stock == 0)
+                            <p class="empty">Out Of Stock</p>;
+                        @else
+                            <input type="number" min="1" value="1" name="product_qty" class="qty">
+                        @endif
                         <input type="hidden" name="product_id" value="{{ $wishlist->product->id }}">
                         <input type="hidden" name="product_name" value="{{ $wishlist->product->name }}">
                         <input type="hidden" name="product_price" value="{{ $wishlist->product->price }}">
                         <input type="hidden" name="product_image" value="{{ $wishlist->product->image }}">
-                        <input type="submit" value="add to cart" class="btn">
+                        <input type="submit" value="add to cart" class="btn {{ $wishlist->product->stock == 0 ? 'disabled' : '' }}">
                     </form>
                     @php
-                        $grand_total += $wishlist->product->price;
+                        if($wishlist->product->stock > 0){
+                            $grand_total += $wishlist->product->price;
+                        }
                     @endphp
                 @endforeach
             @else

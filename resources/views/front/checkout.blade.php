@@ -8,11 +8,13 @@
 
         @if ($carts->count() > 0)
             @foreach ($carts as $item)
-                @php
-                    $cartTotalPrice = $item->product->price * $item->quantity;
-                    $cartGrandTotal += $cartTotalPrice;
-                @endphp
-                <p>{{ $item->product->name }} <span>({{ '₹' . $item->product->price . '/- x ' . $item->quantity }})</span></p>
+                @if ($item->product->stock > 0)
+                    @php
+                        $cartTotalPrice = $item->product->price * $item->quantity;
+                        $cartGrandTotal += $cartTotalPrice;
+                    @endphp
+                    <p>{{ $item->product->name }} <span>({{ '₹' . $item->product->price . '/- x ' . $item->quantity }})</span></p>
+                @endif
             @endforeach
         @else
             <p class="empty">Your cart is empty!</p>

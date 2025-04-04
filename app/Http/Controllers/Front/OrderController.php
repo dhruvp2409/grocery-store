@@ -70,7 +70,7 @@ class OrderController extends Controller
     public function checkout()
     {
         $carts = Cart::where('user_id', auth()->id())->get();
-        $cartTotal = $carts->sum(fn($item) => $item->product->price * $item->quantity);
+        $cartTotal = $carts->sum(fn($item) => $item->product->stock > 0 ? $item->product->price * $item->quantity : 0);
 
         return view('front.checkout', compact('carts', 'cartTotal'));
     }
@@ -90,8 +90,6 @@ class OrderController extends Controller
             'pin_code' => 'required|numeric',
         ]);
 
-        // dd($request->all());
-
         $carts = Cart::where('user_id', auth()->id())->get();
 
         if ($carts->isEmpty()) {
@@ -100,9 +98,9 @@ class OrderController extends Controller
 
         $address = "Flat No. {$request->flat}, {$request->street}, {$request->city}, {$request->state}, {$request->country} - {$request->pin_code}";
 
-        $cartProducts = $carts->map(fn($item) => "{$item->product->name} ({$item->quantity})")->implode(', ');
+        $cartProducts = $carts->map(fn($item) => $item->product->stock > 0 ? "{$item->product->name} ({$item->quantity})" : '')->implode(', ');
 
-        $cartTotal = $carts->sum(fn($item) => $item->product->price * $item->quantity);
+        $cartTotal = $carts->sum(fn($item) => $item->product->stock > 0 ? $item->product->price * $item->quantity : 0);
 
         // Check if order already exists
         if (Order::where([
@@ -132,12 +130,12 @@ class OrderController extends Controller
         ]);
 
         // Reduce stock
-        /* foreach ($carts as $item) {
-            $product = Product::where('name', $item->name)->first();
-            if ($product) {
-                $product->decrement('stock', $item->quantity);
+        foreach ($carts as $item) {
+            if($item->product->stock > 0) {
+                $item->product->decrement('stock', $item->quantity);
+                $item->product->increment('total_sold', $item->quantity);
             }
-        } */
+        }
 
         // Clear cart
         Cart::where('user_id', auth()->id())->delete();
