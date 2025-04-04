@@ -36,9 +36,9 @@ Route::post('register', [AuthController::class,'custom_register'])->name('custom
 
 Route::get('login', [AuthController::class,'login'])->name('login');
 Route::post('login', [AuthController::class,'custom_login'])->name('custom-login');
-Route::get('logout', [AuthController::class,'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('logout', [AuthController::class,'logout'])->name('logout');
     Route::get('/', [PageController::class,'index'])->name('home');
     Route::get('about', [PageController::class,'about'])->name('about');
     Route::get('contact', [PageController::class,'contact'])->name('contact');
@@ -70,6 +70,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/', [HomeController::class,'index'])->name('home');
+        Route::get('user-activities-report', [HomeController::class, 'user_activities_report'])->name('user-activities-report');
+        Route::get('billing-report', [HomeController::class, 'billing_report'])->name('billing-report');
+        Route::get('reports', [HomeController::class, 'reports'])->name('reports');
+        Route::get('order-summary-report', [HomeController::class, 'order_summary_report'])->name('order-summary-report');
+        Route::get('product-sales-report', [HomeController::class, 'product_sales_report'])->name('product-sales-report');
         Route::resource('categories', CategoryController::class)->except('show')->names('categories');
         Route::resource('products', ProductController::class)->except('show')->names('products');
         Route::resource('users', UserController::class)->only(['index','destroy'])->names('users');

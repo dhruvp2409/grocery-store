@@ -8,7 +8,7 @@
             <a href="{{ route('admin.home') }}">Home</a>
             <a href="{{ route('admin.categories.index') }}">Categories</a>
             <a href="{{ route('admin.products.index') }}">Products</a>
-            <a href="admin_orders.php">Orders</a>
+            <a href="{{ route('admin.orders.index') }}">Orders</a>
             <a href="{{ route('admin.users.index') }}">Users</a>
             <a href="{{ route('admin.inquiries.index') }}">Inquiries</a>
         </nav>

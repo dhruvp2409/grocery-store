@@ -29,6 +29,6 @@
                 <p class="empty">No users found!</p>
             @endif
         </div>
-
+        {{ $users->links() }}
     </section>
 @endsection

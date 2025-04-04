@@ -31,7 +31,7 @@
                 <div class="box">
                     <h3>{{ $count['users'] }}</h3>
                     <p>Total Users</p>
-                    <a href="admin_users.php" class="btn">see accounts</a>
+                    <a href="{{ route('admin.user-activities-report') }}" class="btn">see accounts</a>
                 </div>
 
                 <div class="box">
@@ -43,13 +43,13 @@
                 <div class="box">
                     <h3> Reports</h3>
                     <p>View Detailed Reports</p>
-                    <a href="admin_reports.php" class="btn">Generate Reports</a>
+                    <a href="{{ route('admin.reports') }}" class="btn">Generate Reports</a>
                  </div>
 
                 <div class="box">
                     <h3>₹{{ $count['total_billing'] }}/-</h3>
                     <p>Total Billing Amount</p>
-                    <a href="admin_billing.php" class="btn">View Billing</a>
+                    <a href="{{ route('admin.billing-report') }}" class="btn">View Billing</a>
                 </div>
 
             </div>

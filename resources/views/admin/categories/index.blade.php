@@ -28,11 +28,12 @@
                         </div>
                     </div>
                 @endforeach
+
             @else
                 <p class="empty">No categories added yet!</p>;
             @endif
 
         </div>
-
+        {{ $categories->links() }}
     </section>
 @endsection

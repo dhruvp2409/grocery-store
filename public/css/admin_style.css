@@ -283,6 +283,64 @@
     font-size: 1rem;
 }
 
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+ }
+
+ .pagination .page-link {
+    padding: .8rem 1.5rem;
+    color: var(--black);
+    background-color: var(--white);
+    border: var(--border);
+    border-radius: .5rem;
+    transition: all 0.2s linear;
+    font-size: 18px;
+ }
+ .pagination a:hover i {
+    color: var(--white);
+ }
+
+ .pagination .page-link:hover,
+ .pagination .page-link.active {
+    background-color: var(--green);
+    color: var(--white);
+ }
+
+ .pagination .dots {
+    color: var(--black);
+    font-size: 1.2rem;
+ }
+
+ .pagination .prev-btn,
+ .pagination .next-btn {
+    padding: .8rem 1.5rem;
+    color: var(--black);
+    background-color: var(--white);
+    border: var(--border);
+    border-radius: .5rem;
+    transition: all 0.2s linear;
+    font-size: 18px;
+ }
+
+ .pagination .prev-btn:hover,
+ .pagination .next-btn:hover {
+    background-color: var(--green);
+    color: var(--white);
+ }
+
+ /* Optional: Add these styles to disable prev/next buttons when on first/last page */
+ .pagination .prev-btn.disabled,
+ .pagination .next-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+ }
+
 @media (max-width: 768px) {
     .add-products form .flex .inputBox {
         width: 100%;

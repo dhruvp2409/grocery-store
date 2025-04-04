@@ -1,5 +1,6 @@
 @extends('layout.admin')
 @section('title', 'Orders')
+@section('content')
 <section class="placed-orders">
 
     <h1 class="title">placed orders</h1>
@@ -17,18 +18,24 @@
                     <p> total products : <span>{{ $order->total_products }}</span> </p>
                     <p> total price : <span>₹{{ $order->total_price }}/-</span> </p>
                     <p> payment method : <span>{{ $order->payment_method==1 ? 'cash on delivery' : 'online payment' }}</span> </p>
-                    <form action="" method="POST">
-                        <input type="hidden" name="order_id" value="<?= $fetch_orders['id'] ?>">
-                        <select name="update_payment" class="drop-down">
-                            <option value="" selected disabled><?= $fetch_orders['payment_status'] ?></option>
-                            <option value="pending">pending</option>
-                            <option value="completed">completed</option>
+                    <form action="{{ route('admin.orders.update',$order->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <select name="payment_status" class="drop-down">
+                            <option value="pending" @if ($order->payment_status == 'pending') selected @endif>pending</option>
+                            <option value="completed" @if ($order->payment_status == 'completed') selected @endif>completed</option>
                         </select>
                         <div class="flex-btn">
-                            <input type="submit" name="update_order" class="option-btn" value="udate">
-                            <a href="admin_orders.php?delete=<?= $fetch_orders['id'] ?>" class="delete-btn"
-                                onclick="return confirm('delete this order?');">delete</a>
+                            <input type="submit" class="option-btn" value="update">
+                            <a href="javascript:void(0)" class="delete-btn"
+                                onclick="event.preventDefault(); if(confirm('Delete this order?')) document.getElementById('delete-form-{{ $order->id }}').submit();">
+                                Delete
+                            </a>
                         </div>
+                    </form>
+                    <form action="{{ route('admin.orders.destroy', $order->id) }}" method="POST" style="display: none;" id="delete-form-{{ $order->id }}">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     </form>
                 </div>
             @endforeach
@@ -36,6 +43,6 @@
             <p class="empty">no orders placed yet!</p>
         @endif
     </div>
-
+    {{ $orders->links() }}
 </section>
 @endsection

@@ -10,7 +10,7 @@ class InquiryController extends Controller
 {
     public function index()
     {
-        $inquiries = Inquiry::all();
+        $inquiries = Inquiry::paginate(6);
 
         return view('admin.inquiries.index',compact('inquiries'));
     }

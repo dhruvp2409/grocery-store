@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::whereNot('role',1)->get();
+        $users = User::whereNot('role',1)->paginate(6);
 
         return view('admin.users.index',compact('users'));
     }

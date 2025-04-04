@@ -29,6 +29,6 @@
                 <p class="empty">you have no messages!</p>
             @endif
         </div>
-
+        {{ $inquiries->links() }}
     </section>
 @endsection
