@@ -7,19 +7,19 @@
                 <div class="box">
                     <h3>₹{{ $count['pending_orders'] }}/-</h3>
                     <p>Total Pendings</p>
-                    <a href="admin_orders.php" class="btn">see orders</a>
+                    <a href="{{ route('admin.products.index') }}" class="btn">see orders</a>
                 </div>
 
                 <div class="box">
                     <h3>₹{{ $count['completed_orders'] }}/-</h3>
                     <p>Completed Orders</p>
-                    <a href="admin_orders.php" class="btn">see orders</a>
+                    <a href="{{ route('admin.products.index') }}" class="btn">see orders</a>
                 </div>
 
                 <div class="box">
                     <h3>{{ $count['orders'] }}</h3>
                     <p>Orders Placed</p>
-                    <a href="admin_orders.php" class="btn">see orders</a>
+                    <a href="{{ route('admin.products.index') }}" class="btn">see orders</a>
                 </div>
 
                 <div class="box">
