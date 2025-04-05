@@ -16,7 +16,7 @@
             <select name="category_id" class="box" required>
                 <option value="" selected disabled>select category</option>
                 @foreach ($categories as $k => $category)
-                    <option value="{{ $category->id }}" {{ old('category_id', $product->category->id) ? 'selected' : '' }}>
+                    <option value="{{ $category->id }}" {{ old('category_id', $product->category->id)==$category->id ? 'selected' : '' }}>
                         {{ $category->title }}</option>
                 @endforeach
             </select>
