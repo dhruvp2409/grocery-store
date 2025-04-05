@@ -17,7 +17,7 @@
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quisquam, a quod, quis alias eius dignissimos
                     pariatur laborum dolorem ad ullam iure, consequatur autem animi illo odit! Atque quia minima
                     voluptatibus.</p>
-                <a href="shop.php" class="btn">our shop</a>
+                <a href="{{ route('product-list') }}" class="btn">our shop</a>
             </div>
         </div>
     </section>
